@@ -16,10 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React, { useEffect, createRef } from "react";
-import { styled } from "@superset-ui/core";
-import { GraphChartProps, ChartStylesProps } from "../types";
-import { MindMapGraph } from "@ant-design/charts";
+import React, { useEffect, createRef } from 'react';
+import { styled } from '@superset-ui/core';
+import { MindMapGraph } from '@ant-design/charts';
+import { GraphChartProps, ChartStylesProps } from '../types';
 // The following Styles component is a <div> element, which has been styled using Emotion
 // For docs, visit https://emotion.sh/docs/styled
 
@@ -46,13 +46,13 @@ export default function MindmapGraph(props: GraphChartProps) {
   // Here, you can do that with createRef, and the useEffect hook.
   useEffect(() => {
     const root = rootElem.current as HTMLElement;
-    console.log("Plugin element", root);
+    console.log('Plugin element', root);
   });
 
   const config = {
     data,
   };
-  console.log("Plugin props", props);
+  console.log('Plugin props', props);
 
   return <MindMapGraph {...config} />;
 }

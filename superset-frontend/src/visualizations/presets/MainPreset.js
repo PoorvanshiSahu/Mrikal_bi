@@ -35,7 +35,16 @@ import TableChartPlugin from '@superset-ui/plugin-chart-table';
 import { WordCloudChartPlugin } from '@superset-ui/plugin-chart-word-cloud';
 import WorldMapChartPlugin from '@superset-ui/legacy-plugin-chart-world-map';
 import LiquidChartPlugin from 'superset-plugin-chart-liquid';
-import {SupersetPluginAntGraphFundFlowChart,SupersetPluginAntGraphFlowAnalysis,DecompositionGraph,MindmapGraph,RadialChart, OrganizationGraph,SupersetPluginAntGraphConversionChart} from 'superset-plugin-ant-graph-fundflowchart';
+import { SupersetPluginAntGraphFlowChart } from 'plugin-ant-graph-flowchart';
+import {
+  SupersetPluginAntGraphFundFlowChart,
+  SupersetPluginAntGraphFlowAnalysis,
+  DecompositionGraph,
+  MindmapGraph,
+  RadialChart,
+  OrganizationGraph,
+  SupersetPluginAntGraphConversionChart,
+} from 'plugin-antvchart-relation';
 
 import {
   AreaChartPlugin,
@@ -163,16 +172,23 @@ export default class MainPreset extends Preset {
         new EchartsTreeChartPlugin().configure({ key: 'tree_chart' }),
         new EchartsSunburstChartPlugin().configure({ key: 'sunburst_v2' }),
         new HandlebarsChartPlugin().configure({ key: 'handlebars' }),
-        new SupersetPluginAntGraphFlowAnalysis().configure({ key: 'flow_analysis_graph' }),
+        new SupersetPluginAntGraphFlowAnalysis().configure({
+          key: 'flow_analysis_graph',
+        }),
         // new LiquidChartPlugin().configure({key:'liquid-chart'}),
         new SupersetPluginAntGraphFundFlowChart().configure({
-           key:'fundflow-chart'
+          key: 'fundflow-chart',
         }),
         new DecompositionGraph().configure({ key: 'ext-decomposition' }),
         new MindmapGraph().configure({ key: 'ext-mindmap' }),
-        new RadialChart().configure({key:'ext-radial'}),
-        new OrganizationGraph().configure({key:'ext-organization'}),
-        new SupersetPluginAntGraphConversionChart().configure({key:'ext-conversion'}),
+        new RadialChart().configure({ key: 'ext-radial' }),
+        new OrganizationGraph().configure({ key: 'ext-organization' }),
+        new SupersetPluginAntGraphConversionChart().configure({
+          key: 'ext-conversion',
+        }),
+        new SupersetPluginAntGraphFlowChart().configure({
+          key: 'ext-flowChart',
+        }),
         ...experimentalplugins,
       ],
     });

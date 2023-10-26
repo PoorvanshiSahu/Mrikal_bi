@@ -52,86 +52,86 @@ export default function transformProps(chartProps: ChartProps) {
   const { width, height, formData, queriesData } = chartProps;
   const { boldText, headerFontSize, headerText, sourceId, targetId } = formData;
   const rawData = queriesData[0].data as TimeseriesDataRecord[];
-  console.log(formData, 'formData')
-  console.log(rawData, 'rawdata')
-  console.log(queriesData, 'queriesData')
+  console.log(formData, 'formData');
+  console.log(rawData, 'rawdata');
+  console.log(queriesData, 'queriesData');
 
-interface Item {
-  text: string;
-  value?: string;
-}
+  interface Item {
+    text: string;
+    value?: string;
+  }
 
-interface Value {
-  title: string;
-  items: Item[];
-}
-
-interface Child {
-  id: string;
-  value: Value;
-  children?: Child[];
-}
-
-interface Result {
-  id: string;
-  value: {
+  interface Value {
     title: string;
-    items: [];
-  };
-  children: Child[];
-}
+    items: Item[];
+  }
 
-function formatData(rawData: any): Result {
-  const result: Result = {
-    id: 'root',
+  interface Child {
+    id: string;
+    value: Value;
+    children?: Child[];
+  }
+
+  interface Result {
+    id: string;
     value: {
-      title: '股东会',
-      items: []
-    },
-    children: [],
-  };
+      title: string;
+      items: [];
+    };
+    children: Child[];
+  }
 
-  const nestedMap: { [key: string]: Child } = {};
-  console.log(rawData, 'rokadata')
-  rawData.forEach((item: any) => {
-    result.value.title = item[targetId];
-    console.log(sourceId, 'source', targetId)
-    const parts = item[targetId].split(' ') || null;
-    console.log(parts, 'zzz');
-    
-    let currentLevel: Child[] = result.children;
-    parts.forEach((part: any) => {
-      const nodeId = `child-${part.toLowerCase()}`;
-      console.log(part, 'parts')
-      if (!(nodeId in nestedMap)) {
-        const newNode: Child = {
-          id: nodeId,
-          value: {
-            title: `${part} (${item.count})`,
-            items: [{ 
-              text: `${part}`
-            }]
-          },
-        };
+  function formatData(rawData: any): Result {
+    const result: Result = {
+      id: 'root',
+      value: {
+        title: '股东会',
+        items: [],
+      },
+      children: [],
+    };
 
-        nestedMap[nodeId] = newNode;
-        currentLevel.push(newNode);
-      }
+    const nestedMap: { [key: string]: Child } = {};
+    console.log(rawData, 'rokadata');
+    rawData.forEach((item: any) => {
+      result.value.title = item[targetId];
+      console.log(sourceId, 'source', targetId);
+      const parts = item[targetId].split(' ') || null;
+      console.log(parts, 'zzz');
 
-      currentLevel = nestedMap[nodeId].children || [];
+      let currentLevel: Child[] = result.children;
+      parts.forEach((part: any) => {
+        const nodeId = `child-${part.toLowerCase()}`;
+        console.log(part, 'parts');
+        if (!(nodeId in nestedMap)) {
+          const newNode: Child = {
+            id: nodeId,
+            value: {
+              title: `${part} (${item.count})`,
+              items: [
+                {
+                  text: `${part}`,
+                },
+              ],
+            },
+          };
+
+          nestedMap[nodeId] = newNode;
+          currentLevel.push(newNode);
+        }
+
+        currentLevel = nestedMap[nodeId].children || [];
+      });
     });
-  });
 
-  return result;
-}
+    return result;
+  }
 
+  const data: any = formatData(rawData);
+  console.log(data);
 
-
-const data:any = formatData(rawData);
-console.log(data);
-
-console.log('formData via TransformProps.ts', formData);
-console.log(data, 'hgfh')
+  console.log('formData via TransformProps.ts', formData);
+  console.log(data, 'hgfh');
 
   return {
     width,

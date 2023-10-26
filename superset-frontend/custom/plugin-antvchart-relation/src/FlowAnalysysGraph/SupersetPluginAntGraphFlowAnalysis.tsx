@@ -40,12 +40,13 @@ export default function SupersetPluginAntGraphFlowChart(props: any) {
   // height and width are the height and width of the DOM element as it exists in the dashboard.
   // There is also a `data` prop, which is, of course, your DATA 🎉
   // const { data, height, width } = props;
-
-  const [key, setKey] = useState(props.height.toString()+props.width.toString())
+  const [key, setKey] = useState(
+    props.height.toString() + props.width.toString(),
+  );
   // Often, you just want to access the DOM and do whatever you want.
   // Here, you can do that with createRef, and the useEffect hook.
   useEffect(() => {
-    setKey(props.height.toString()+props.width.toString())
+    setKey(props.height.toString() + props.width.toString());
     console.log('Plugin element', key);
   });
 
@@ -65,90 +66,89 @@ export default function SupersetPluginAntGraphFlowChart(props: any) {
   const config: any = {
     data,
     height: props.height,
-    // nodeCfg: {
-    //   type: 'fund-card',
-    //   label: {
-    //     // style: (node: any) => {
-    //     //   let t = node.value.items;
-    //     //   if (node.value.subText === '') {
-    //     //     t = node.value.text;
-    //     //   }
-    //     //   const maxWidth = 15; // Define the maximum width for text
-    //     //   const textLength = t.length;
-    //     //   if (textLength > maxWidth) {
-    //     //     const wrappedText = t
-    //     //       .match(new RegExp(`.{1,${maxWidth}}`, 'g'))
-    //     //       .join('\n');
-    //     //     return {
-    //     //       text: wrappedText,
-    //     //       fill: `rgba(${text.r}, ${text.g}, ${text.b}, ${text.a})`,
-    //     //     };
-    //     //   }
+    nodeCfg: {
+      type: 'fund-card',
+      label: {
+        style: (node: any) => {
+          let t = node.value.subText;
+          if (node.value.subText === '') {
+            t = node.value.text;
+          }
+          const maxWidth = 15; // Define the maximum width for text
+          const textLength = t.length;
+          if (textLength > maxWidth) {
+            const wrappedText = t
+              .match(new RegExp(`.{1,${maxWidth}}`, 'g'))
+              .join('\n');
+            return {
+              text: wrappedText,
+              fill: `rgba(${text.r}, ${text.g}, ${text.b}, ${text.a})`,
+            };
+          }
 
-    //     //   if (node.id === 'start') {
-    //     //     return {
-    //     //       fill: 'green',
-    //     //     };
-    //     //   }
-    //     //   if (node.id === 'end') {
-    //     //     return {
-    //     //       fill: 'red',
-    //     //     };
-    //     //   }
-    //     //   return {
-    //     //     text: `${t}`,
-    //     //     fill: `rgba(${node.value.text.r}, ${node.value.text.g}, ${node.value.text.b}, ${node.value.text.a})`,
-    //     //     // textAlign: 'center', // Center-align the text
-    //     //   };
-    //     // },
-    //   },
-    //   // style: (node: any) => {
-    //   //   let opacity = nodeBack.a;
-    //   //   nodeMax += 0.1;
-    //   //   const newMin = 0.1;
-    //   //   const newMax = 1;
-    //   //   if (node.value.metric !== undefined && node_strength) {
-    //   //     opacity = (node.value.metric - nodeMin) / (nodeMax - nodeMin);
-    //   //     opacity = opacity * (newMax - newMin) + newMin;
-    //   //     // opacity = opacity/2;
-    //   //   }
-    //   //   // console.log(node.value.metric, " ", nodeMax )
-    //   //   // console.log("opacity value" ,opacity)
+          if (node.id === 'start') {
+            return {
+              fill: 'green',
+            };
+          }
+          if (node.id === 'end') {
+            return {
+              fill: 'red',
+            };
+          }
+          return {
+            text: `${t}`,
+            fill: `rgba(${node.value.text.r}, ${node.value.text.g}, ${node.value.text.b}, ${node.value.text.a})`,
+            // textAlign: 'center', // Center-align the text
+          };
+        },
+      },
+      style: (node: any) => {
+        let opacity = nodeBack.a;
+        nodeMax += 0.1;
+        const newMin = 0.1;
+        const newMax = 1;
+        if (node.value.metric !== undefined && node_strength) {
+          opacity = (node.value.metric - nodeMin) / (nodeMax - nodeMin);
+          opacity = opacity * (newMax - newMin) + newMin + 3;
+          // opacity = opacity/2;
+        }
+        // console.log(node.value.metric, " ", nodeMax )
+        // console.log("opacity value" ,opacity)
 
-    //   //   if (node.id === 'start') {
-    //   //     return {
-    //   //       stroke: 'green',
-    //   //       lineWidth: 5,
-    //   //     };
-    //   //   }
-    //   //   if (node.id === 'end') {
-    //   //     return {
-    //   //       stroke: 'red',
-    //   //       lineWidth: 5,
-    //   //     };
-    //   //   }
-    //   //   const textLength = node.value.text.length;
-    //   //   const maxWidth = 20; // Define the maximum width for text
-    //   //   const wrappedText = node.value.text
-    //   //     .match(new RegExp(`.{1,${maxWidth}}`, 'g'))
-    //   //     .join('\n');
-    //   //   const numLines = wrappedText.split('\n').length;
-    //   //   const minWidth = 100; // Minimum width for the node
-    //   //   const minHeight = 70; // Fixed height for the node
-    //   //   const width = Math.max(minWidth, textLength * 10); // Adjust the multiplier as per your preference
-    //   //   const height = Math.max(minHeight, numLines * 35);
-    //   //   // console.log(width, " 0" , height)
-    //   //   return {
-    //   //     fill: `rgba(${nodeBack.r}, ${nodeBack.g}, ${nodeBack.b}, ${opacity})`,
-    //   //     lineWidth: 2,
-    //   //     textAlign: 'center', // Center-align the text
-    //   //     size: [width, height],
-    //   //   };
-    //   // },
+        if (node.id === 'start') {
+          return {
+            stroke: 'green',
+            lineWidth: 5,
+          };
+        }
+        if (node.id === 'end') {
+          return {
+            stroke: 'red',
+            lineWidth: 5,
+          };
+        }
+        const textLength = node.value.text.length;
+        const maxWidth = 20; // Define the maximum width for text
+        const wrappedText = node.value.text
+          .match(new RegExp(`.{1,${maxWidth}}`, 'g'))
+          .join('\n');
+        const numLines = wrappedText.split('\n').length;
+        const minWidth = 100; // Minimum width for the node
+        const minHeight = 70; // Fixed height for the node
+        const width = Math.max(minWidth, textLength * 10); // Adjust the multiplier as per your preference
+        const height = Math.max(minHeight, numLines * 35);
+        // console.log(width, " 0" , height)
+        return {
+          fill: `rgba(${nodeBack.r}, ${nodeBack.g}, ${nodeBack.b}, ${opacity})`,
+          lineWidth: 2,
+          textAlign: 'center', // Center-align the text
+          size: [width, height],
+        };
+      },
 
       // size: [150, 70],
-    // },
-
+    },
 
     edgeCfg: {
       style: (edge: any) => {
@@ -160,6 +160,7 @@ export default function SupersetPluginAntGraphFlowChart(props: any) {
           val = (edge.value.metric - edgeMin) / (edgeMax - edgeMin);
         val = val * (newMax - newMin) + newMin;
 
+        // console.log(edge.value.metric, 'edge_metric ', val);
         return {
           lineWidth: 2 * val,
           stroke: '#1890ff',
@@ -184,7 +185,6 @@ export default function SupersetPluginAntGraphFlowChart(props: any) {
       };
     },
   };
-  console.log("config",config);
 
   // console.log('Plugin props', props);
 

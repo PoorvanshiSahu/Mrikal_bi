@@ -63,7 +63,7 @@ export default function transformProps(chartProps: ChartProps) {
     nodeStrength,
     edgeStrength,
     textColor,
-  } = formData;  
+  } = formData;
   const rawData = (queriesData[0].data as TimeseriesDataRecord[]) || [];
 
   let edgeMax = Number.MIN_SAFE_INTEGER;
@@ -104,7 +104,7 @@ export default function transformProps(chartProps: ChartProps) {
     return Array.from(edges, (edge: any) => JSON.parse(edge));
   }
 
-   function findIndex(nodes: any, source: any, target: any): any {
+  function findIndex(nodes: any, source: any, target: any): any {
     const result = [];
 
     for (const node of nodes) {
@@ -168,7 +168,6 @@ export default function transformProps(chartProps: ChartProps) {
 
     return nodes;
   }
-
 
   const nodes: any = createNode(rawData) || [];
   const edges: any = createEdge(rawData, nodes) || [];

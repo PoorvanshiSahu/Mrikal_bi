@@ -50,11 +50,10 @@ export default function transformProps(chartProps: ChartProps) {
    */
   const { width, height, formData, queriesData } = chartProps;
   const { boldText, headerFontSize, headerText, sourceId, targetId } = formData;
- 
 
   const rawData = queriesData[0].data as TimeseriesDataRecord[];
 
-  console.log(rawData, 'dee')
+  console.log(rawData, 'dee');
 
   // let edgeMax = Number.MIN_SAFE_INTEGER;
   // const edgeMin = 0;
@@ -165,72 +164,70 @@ export default function transformProps(chartProps: ChartProps) {
   //   nodes,
   // };
 
-interface Child {
-  id: string;
-  value: {
-    name: string;
-  };
-  children?: Child[];
-}
-
-interface Result {
-  id: string;
-  value: {
-    name: string;
-    title: string;
-  };
-  children: Child[];
-}
-
-function formatData(rawData: any): Result {
-  const result: Result = {
-    id: 'root',
+  interface Child {
+    id: string;
     value: {
-      name: '',
-      title: '',
-    },
-    children: [],
-  };
+      name: string;
+    };
+    children?: Child[];
+  }
 
-  const nestedMap: { [key: string]: Child } = {};
+  interface Result {
+    id: string;
+    value: {
+      name: string;
+      title: string;
+    };
+    children: Child[];
+  }
 
-  rawData.forEach((item: any) => {
-    result.value.name = item[sourceId];
-    console.log(sourceId, 'source')
-    result.value.title = item[targetId];
-    const parts = item[targetId].split(' ');
+  function formatData(rawData: any): Result {
+    const result: Result = {
+      id: 'root',
+      value: {
+        name: '',
+        title: '',
+      },
+      children: [],
+    };
 
-    let currentLevel: Child[] = result.children;
+    const nestedMap: { [key: string]: Child } = {};
 
-    parts.forEach((part: any) => {
-      const nodeId = `child-${part.toLowerCase()}`;
+    rawData.forEach((item: any) => {
+      result.value.name = item[sourceId];
+      console.log(sourceId, 'source');
+      result.value.title = item[targetId];
+      const parts = item[targetId].split(' ');
 
-      if (!(nodeId in nestedMap)) {
-        const newNode: Child = {
-          id: nodeId,
-          value: {
-            name: `${part} (${item.count})`,
-          },
-        };
+      let currentLevel: Child[] = result.children;
 
-        nestedMap[nodeId] = newNode;
-        currentLevel.push(newNode);
-      }
+      parts.forEach((part: any) => {
+        const nodeId = `child-${part.toLowerCase()}`;
 
-      currentLevel = nestedMap[nodeId].children || [];
+        if (!(nodeId in nestedMap)) {
+          const newNode: Child = {
+            id: nodeId,
+            value: {
+              name: `${part} (${item.count})`,
+            },
+          };
+
+          nestedMap[nodeId] = newNode;
+          currentLevel.push(newNode);
+        }
+
+        currentLevel = nestedMap[nodeId].children || [];
+      });
     });
-  });
 
-  return result;
-}
+    return result;
+  }
 
+  const data: any = formatData(rawData);
+  console.log(data);
 
-
-const data:any = formatData(rawData);
-console.log(data);
-
-console.log('formData via TransformProps.ts', formData);
-console.log(data, 'hgfh')
+  console.log('formData via TransformProps.ts', formData);
+  console.log(data, 'hgfh');
 
   return {
     width,

@@ -19,7 +19,7 @@
 import React, { useEffect, createRef } from 'react';
 // import { styled } from "@superset-ui/core";
 import { DecompositionTreeGraph } from '@ant-design/charts';
-import { GraphChartProps, ChartStylesProps } from './types';
+import { GraphChartProps, ChartStylesProps } from '../types';
 
 // The following Styles component is a <div> element, which has been styled using Emotion
 // For docs, visit https://emotion.sh/docs/styled

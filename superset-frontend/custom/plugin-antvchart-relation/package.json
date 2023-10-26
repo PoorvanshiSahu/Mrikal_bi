@@ -1,7 +1,7 @@
 {
-  "name": "superset-plugin-ant-graph-fundflowchart",
+  "name": "plugin-antvchart-relation",
   "version": "0.1.0",
-  "description": "Superset Plugin Ant Graph Fund Flow Chart",
+  "description": "Plugin Antvchart Relation",
   "sideEffects": false,
   "main": "lib/index.js",
   "module": "esm/index.js",

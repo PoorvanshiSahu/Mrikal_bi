@@ -65,7 +65,7 @@ export default function transformProps(chartProps: ChartProps) {
     edgeStrength,
     textColor,
   } = formData;
-  
+
   // console.log('formData',formData)
   // console.log(width,height,'width')
   const rawData = (queriesData[0].data as TimeseriesDataRecord[]) || [];
@@ -117,28 +117,27 @@ export default function transformProps(chartProps: ChartProps) {
         //   metric: metricStr,
         // }
 
-          id: item,
-          name:item,
-          layerName: subLabel,
-          measure: {
+        id: item,
+        name: item,
+        layerName: subLabel,
+        measure: {
+          name: '',
+          value: 0,
+          formattedValue: 0,
+          formattedUnit: '',
+        },
+        relatedMeasures: [
+          {
             name: '',
             value: 0,
             formattedValue: 0,
             formattedUnit: '',
           },
-          relatedMeasures: [
-            {
-              name: '',
-              value: 0,
-              formattedValue: 0,
-              formattedUnit: '',
-            },
-          ],
-          compareMeasures: [],
-          style: {
-            stroke: '#F5A623',
-          },
-        
+        ],
+        compareMeasures: [],
+        style: {
+          stroke: '#F5A623',
+        },
       };
 
       // id += 1;
@@ -173,15 +172,15 @@ export default function transformProps(chartProps: ChartProps) {
         // source: nds[0].id,
         // target: nds[1].id,
         // value: {},
-          id: nds[0].id,
-          source: nds[0].id,
-          target: nds[1].id,
-          measure: {
-            name: '',
-            value: {},
-            formattedValue: 0,
-            formattedUnit: '',
-          },
+        id: nds[0].id,
+        source: nds[0].id,
+        target: nds[1].id,
+        measure: {
+          name: '',
+          value: {},
+          formattedValue: 0,
+          formattedUnit: '',
+        },
       };
 
       const val: any = {

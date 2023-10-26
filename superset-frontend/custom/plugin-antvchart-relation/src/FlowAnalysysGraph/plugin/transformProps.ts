@@ -65,9 +65,9 @@ export default function transformProps(chartProps: ChartProps) {
     edgeStrength,
     textColor,
   } = formData;
-  
-  console.log('formData',formData)
-  console.log(width,height,'width')
+
+  console.log('formData for color', formData);
+  // console.log(width,height,'width')
   const rawData = (queriesData[0].data as TimeseriesDataRecord[]) || [];
 
   let edgeMax = Number.MIN_SAFE_INTEGER;
@@ -127,11 +127,11 @@ export default function transformProps(chartProps: ChartProps) {
 
     return nodes;
   }
-          // text: item,
-          // subText: subLabel,
-          // metric: metricStr,
+  // text: item,
+  // subText: subLabel,
+  // metric: metricStr,
   function findIndex(nodes: any, source: any, target: any): any {
-    let result = new Array(2);
+    const result = new Array(2);
     for (const node of nodes) {
       if (node.value.title === source) {
         result[0] = node;
@@ -176,8 +176,6 @@ export default function transformProps(chartProps: ChartProps) {
     return Array.from(edges, (edge: any) => JSON.parse(edge));
   }
 
-  // console.log("set", createNode(rawData))
-  // console.log("raw data ", rawData)
   const nodes: any = createNode(rawData) || [];
   const edges: any = createEdge(rawData, nodes) || [];
   const data = {
@@ -185,14 +183,8 @@ export default function transformProps(chartProps: ChartProps) {
     edges,
   };
 
-  console.log('formData via TransformProps.ts', formData);
-  console.log("modified data",data);
-  
-  // console.log("Data is looks like ", data)
-
   return {
     color,
-    textColor,
     nodeStrength,
     edgeStrength,
     nodeMax,
@@ -206,5 +198,6 @@ export default function transformProps(chartProps: ChartProps) {
     boldText,
     headerFontSize,
     headerText,
+    textColor,
   };
 }

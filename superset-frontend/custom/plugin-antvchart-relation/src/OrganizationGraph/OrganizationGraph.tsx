@@ -16,10 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React, { useEffect, createRef } from "react";
-import { styled } from "@superset-ui/core";
-import { GraphChartProps, ChartStylesProps } from "../types";
-import { OrganizationalGraph } from "@ant-design/charts";
+import React, { useEffect, createRef } from 'react';
+import { styled } from '@superset-ui/core';
+import { OrganizationalGraph } from '@ant-design/charts';
+import { GraphChartProps, ChartStylesProps } from '../types';
 
 // The following Styles component is a <div> element, which has been styled using Emotion
 // For docs, visit https://emotion.sh/docs/styled
@@ -75,40 +75,32 @@ export default function OrganizationGraph(props: GraphChartProps) {
     }
   };
 
-  const getRootTextAttrs = () => {
-    return {
-      fontSize: getTextStyle(1),
-      fontWeight: "bold",
-      fill: "#fff",
-    };
-  };
+  const getRootTextAttrs = () => ({
+    fontSize: getTextStyle(1),
+    fontWeight: 'bold',
+    fill: '#fff',
+  });
 
-  const getSecondTextStyle = () => {
-    return {
-      fontSize: getTextStyle(2),
-      color: "#000",
-    };
-  };
+  const getSecondTextStyle = () => ({
+    fontSize: getTextStyle(2),
+    color: '#000',
+  });
 
-  const getRootNodeStyle = () => {
-    return {
-      fill: "#1E88E5",
-      stroke: "#1E88E5",
-      radius: 5,
-    };
-  };
+  const getRootNodeStyle = () => ({
+    fill: '#1E88E5',
+    stroke: '#1E88E5',
+    radius: 5,
+  });
 
-  const getSecondNodeStyle = () => {
-    return {
-      fill: "#e8e8e8",
-      stroke: "#e8e8e8",
-      radius: 5,
-    };
-  };
+  const getSecondNodeStyle = () => ({
+    fill: '#e8e8e8',
+    stroke: '#e8e8e8',
+    radius: 5,
+  });
 
   const calcStrLen = function calcStrLen(str) {
-    var len = 0;
-    for (var i = 0; i < str.length; i++) {
+    let len = 0;
+    for (let i = 0; i < str.length; i++) {
       if (str.charCodeAt(i) > 0 && str.charCodeAt(i) < 128) {
         len++;
       } else {
@@ -117,7 +109,7 @@ export default function OrganizationGraph(props: GraphChartProps) {
     }
     return len;
   };
-  console.log(data, "alizeh");
+  console.log(data, 'alizeh');
 
   const config = {
     data,
@@ -128,10 +120,10 @@ export default function OrganizationGraph(props: GraphChartProps) {
       style: (item: any) => {
         const { level } = item.value;
         return {
-          fill: "transparent",
-          stroke: "transparent",
+          fill: 'transparent',
+          stroke: 'transparent',
           radius: 4,
-          cursor: "pointer",
+          cursor: 'pointer',
           ...(level === 1 ? getRootNodeStyle() : {}),
           ...(level === 2 ? getSecondNodeStyle() : {}),
         };
@@ -139,20 +131,20 @@ export default function OrganizationGraph(props: GraphChartProps) {
       nodeStateStyles: {
         hover: {
           lineWidth: 2,
-          stroke: "#96DEFF",
+          stroke: '#96DEFF',
         },
       },
       label: {
         style: (cfg: any, group: any, type: any) => {
           const { level, href } = cfg.value;
 
-          if (type !== "name") {
+          if (type !== 'name') {
             return {};
           }
           return {
             // fontSize: getTextStyle(),
-            cursor: "pointer",
-            fill: href ? "#1890ff" : "#000",
+            cursor: 'pointer',
+            fill: href ? '#1890ff' : '#000',
             ...(level === 1 ? getRootTextAttrs() : {}),
             ...(level === 2 ? getSecondTextStyle() : {}),
           };
@@ -164,9 +156,9 @@ export default function OrganizationGraph(props: GraphChartProps) {
       ],
     },
     edgeCfg: {
-      type: "polyline",
+      type: 'polyline',
       style: {
-        stroke: "#000",
+        stroke: '#000',
         endArrow: false,
       },
     },
@@ -181,11 +173,11 @@ export default function OrganizationGraph(props: GraphChartProps) {
     autoFit: true,
     fitCenter: true,
     animate: false,
-    behaviors: ["drag-canvas", "zoom-canvas"],
+    behaviors: ['drag-canvas', 'zoom-canvas'],
     onReady: (graph: any) => {
-      graph.on("node:click", (evt: any) => {
+      graph.on('node:click', (evt: any) => {
         const { item, target } = evt;
-        const { value } = item.get("model");
+        const { value } = item.get('model');
         if (value.href) {
           window.open(value.href);
         }
@@ -199,10 +191,10 @@ export default function OrganizationGraph(props: GraphChartProps) {
   // Here, you can do that with createRef, and the useEffect hook.
   useEffect(() => {
     const root = rootElem.current as HTMLElement;
-    console.log("Plugin element", root);
+    console.log('Plugin element', root);
   });
 
-  console.log("Plugin props", props);
+  console.log('Plugin props', props);
 
   return <OrganizationalGraph {...config} />;
 }

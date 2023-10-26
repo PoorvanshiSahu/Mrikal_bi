@@ -41,11 +41,13 @@ export default function SupersetPluginAntGraphFundFlowChart(props: any) {
   // There is also a `data` prop, which is, of course, your DATA 🎉
   // const { data, height, width } = props;
 
-  const [key, setKey] = useState(props.height.toString()+props.width.toString())
+  const [key, setKey] = useState(
+    props.height.toString() + props.width.toString(),
+  );
   // Often, you just want to access the DOM and do whatever you want.
   // Here, you can do that with createRef, and the useEffect hook.
   useEffect(() => {
-    setKey(props.height.toString()+props.width.toString())
+    setKey(props.height.toString() + props.width.toString());
     console.log('Plugin element', key);
   });
 
@@ -109,7 +111,7 @@ export default function SupersetPluginAntGraphFundFlowChart(props: any) {
         const newMax = 1;
         if (node.value.metric !== undefined && node_strength) {
           opacity = (node.value.metric - nodeMin) / (nodeMax - nodeMin);
-          opacity = opacity * (newMax - newMin) + newMin;
+          opacity = opacity * (newMax - newMin) + newMin + 3;
           // opacity = opacity/2;
         }
         // console.log(node.value.metric, " ", nodeMax )

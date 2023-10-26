@@ -65,9 +65,9 @@ export default function transformProps(chartProps: ChartProps) {
     edgeStrength,
     textColor,
   } = formData;
-  
-  console.log('formData',formData)
-  console.log(width,height,'width')
+
+  console.log('formData', formData);
+  console.log(width, height, 'width');
   const rawData = (queriesData[0].data as TimeseriesDataRecord[]) || [];
 
   let edgeMax = Number.MIN_SAFE_INTEGER;
@@ -126,7 +126,7 @@ export default function transformProps(chartProps: ChartProps) {
   }
 
   function findIndex(nodes: any, source: any, target: any): any {
-    let result = new Array(2);
+    const result = new Array(2);
 
     for (const node of nodes) {
       if (node.value.text === source) {

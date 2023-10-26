@@ -16,10 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-import React, { useEffect, createRef } from "react";
+import React, { useEffect, createRef } from 'react';
 // import { styled } from "@superset-ui/core";
 // import { GraphChartProps, ChartStylesProps } from "../types";
-import { RadialGraph } from "@ant-design/graphs";
+import { RadialGraph } from '@ant-design/graphs';
 
 // The following Styles component is a <div> element, which has been styled using Emotion
 // For docs, visit https://emotion.sh/docs/styled
@@ -83,10 +83,10 @@ export default function RadialChart(props: any) {
   // Here, you can do that with createRef, and the useEffect hook.
   useEffect(() => {
     const root = rootElem.current as HTMLElement;
-    console.log("Plugin element", root);
+    console.log('Plugin element', root);
   });
 
-  console.log(data, "alizeh");
+  console.log(data, 'alizeh');
   const config: any = {
     data,
     autoFit: false,
@@ -98,7 +98,7 @@ export default function RadialChart(props: any) {
     labelCfg: {
       style: {
         fontSize: 5,
-        fill: "#000",
+        fill: '#000',
       },
     },
     edgeCfg: {
@@ -121,7 +121,7 @@ export default function RadialChart(props: any) {
       labelCfg: {
         style: {
           fontSize: 5,
-          fill: "#000",
+          fill: '#000',
         },
       },
     },
@@ -211,7 +211,7 @@ export default function RadialChart(props: any) {
     // },
   };
 
-  console.log("Plugin props", props);
+  console.log('Plugin props', props);
 
   return <RadialGraph {...config} />;
 }
